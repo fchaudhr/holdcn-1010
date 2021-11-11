@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Task 1 - Prepare Ansible node - Cisco Live 2021 HOLDCN-1010</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Task 1 - Prepare Ansible node";
+    var mkdocs_page_input_path = "Task1-ansible-node.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Cisco Live 2021 HOLDCN-1010</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../intro/">Introduction</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Task 1 - Prepare Ansible node</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task2-first-ansible/">Task 2 - First Simple Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task3-vxlan-jinja2/">Task 3 - Use of Jinja2 templates with Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task4-vxlan-nxos/">Task 4 - Config switches using Ansible NXOS modules</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task5-day2-operation/">Task 5 - Day 2 Operations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixA-F5/">Appendix A - F5</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixB-Upgrade/">Appendix B - Upgrade</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Cisco Live 2021 HOLDCN-1010</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Task 1 - Prepare Ansible node</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/fchaudhr/holdcn-1010.git/edit/master/docs/Task1-ansible-node.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>Your first task will be to build an Ansible node on a server running redhat CentOS operating system.  At the end of this task, you will have a fully operational Ansible node.</p>
+<h4 id="step-1-connect-to-lab-using-anyconnect-vpn">Step 1: Connect to lab using anyconnect VPN</h4>
+<p>You will connect to <strong>dcloud-rtp-anyconnect.cisco.com</strong> using Cisco VPN AnyConnect client, as shown in below picture, with the username and password provided by the lab admin.<br />
+<strong>Note:</strong> lab admin will furnish the credentials information to the participant.  If you don't have this information please ask the lab speakers.</p>
+<p><img alt="" src="../pic/1-1-1-rtp.png" /></p>
+<h4 id="step-2-enter-vpn-credentials">Step 2: Enter VPN credentials</h4>
+<p>After prompted for credentials, use the credentials provided by the lab admin.    <br />
+•   Below is an example of user logging into a reference POD:</p>
+<p><img alt="" src="../pic/1-2-vpn-credentials.png" /></p>
+<ul>
+<li>Hit accept when the prompt appears to accept the VPN connection login    </li>
+</ul>
+<p><img alt="" src="../pic/1-2-vpn-accept.png" /></p>
+<h4 id="step-3-rdp-to-workstation">Step 3: RDP to workstation</h4>
+<p>In this step, you will connect to the workstation with RDP client on your machines.  Use below details for this RDP session:</p>
+<ul>
+<li>Workstation: <strong>198.18.133.36</strong></li>
+<li>Username: <strong>dcloud\demouser</strong></li>
+<li>Password: <strong>C1sco12345</strong></li>
+</ul>
+<p>Below screenshot is only an example for this RDP connection:</p>
+<p><img alt="" src="../pic/1-3-RDP.png" /></p>
+<h4 id="step-4-mtputty">Step 4: MTputty</h4>
+<p>Once you have the RDP session to the remote workstation, then you will use MTputty client to connect to all devices in this lab.  </p>
+<p>MTputty is already installed on the Desktop of the workstation where you connected using RDP.  Run this application by clicking on the icon on the desktop:</p>
+<p><img alt="" src="../pic/1-4-mtputty.png" /></p>
+<h4 id="step-5-ssh-into-ansible-node">Step 5: SSH into Ansible node</h4>
+<p>SSH into Ansible node (198.18.134.150) by double clicking the Ansible icon on the left pan with username <strong>root</strong> and password <strong>C1sco12345</strong></p>
+<p><img alt="" src="../pic/1-5-mtputty-open.png" /></p>
+<h4 id="step-6-verify-python">Step 6: Verify Python</h4>
+<p>Once successfully SSH into the ansible node, the very first thing we are going to do after logging into Ansible server is verify the python version by running <code>python --version</code> command - as shown below:</p>
+<pre><code>[root@rhel7-tools ~]# python --version
+</code></pre>
+<p>It is an important step as we need minimum 2.7.5 version of python in order to install some features for ansbile.  The output of above command confirms this version. </p>
+<p>Ansible can be run from any machine with Python 2 (versions 2.6 or 2.7) or Python 3 (versions 3.5 and higher) installed. </p>
+<p><img alt="" src="../pic/1-6-python.png" /></p>
+<h4 id="step-7-install-pip">Step 7: Install PIP</h4>
+<p>After verifying we have the minimum version of python installed, we are now going to Install PIP python package using <code>easy_install pip</code> command as shown below:</p>
+<pre><code>[root@rhel7-tools ~]# easy_install pip
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-6-2-python-new.png" /></p>
+<p>Next, update pip to latest version by executing command <code>pip install --upgrade pip</code> as shown below:</p>
+<pre><code>[root@rhel7-tools ~]# pip install --upgrade pip
+</code></pre>
+<p><strong>Note:</strong> you can ignore the warning related to python version.  Below screenshot shows the exection of above command:</p>
+<p><img alt="" src="../pic/1-6-3-python-new.png" /></p>
+<p>After installing PIP package, we are going to add the relevant packages that are needed for this Ansible based VXLAN lab. Below are the packages required for this lab.  </p>
+<ul>
+<li>Paramiko</li>
+<li>PyYAML</li>
+<li>Jinj2</li>
+<li>Httplib2</li>
+</ul>
+<p>Run the command <code>pip install paramiko PyYAML jinja2 httplib2</code>, as shown below, to install these packages:</p>
+<pre><code>[root@rhel7-tools ~]# pip install paramiko PyYAML jinja2 httplib2
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-6-4-python-new.png" /></p>
+<p>As a final step, we are going to install Ansible on this RHEL. Once the install is initiated by using <code>pip install ansible==2.8.0b1</code> command (as shown below).  It may take few minutes for it to download and install.</p>
+<pre><code>[root@rhel7-tools ~]# pip install ansible==2.8.0b1
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-6-5-ansible-new.png" /></p>
+<h4 id="step-8-verify-ansible">Step 8: Verify Ansible</h4>
+<p>After installation is complete, check Ansible version by executing command <code>ansible --version</code>, as shown below:</p>
+<pre><code>[root@rhel7-tools ~]# ansible --version
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-8-1-version-new.png" /></p>
+<h4 id="step-9-create-ansible-inventory">Step 9: Create Ansible Inventory</h4>
+<p>Now, we are going to create inventory, host variables and Configuration file. This is important as Ansible works  against multiple systems in the system by selecting portions of systems listed in Ansible inventory. Similarly, configuration settings in Ansible are adjustable via configuration file.</p>
+<p>Create folder named LTRDCN-1572 as working environment and verify that it’s empty:</p>
+<pre><code>[root@rhel7-tools ~]# mkdir LTRDCN-1572 &amp;&amp; cd LTRDCN-1572
+[root@rhel7-tools LTRDCN-1572]# ls
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-9-1-dir.png" /></p>
+<p>Next:</p>
+<ul>
+<li>Create Ansible inventory file to include Spine and Leaf switches. </li>
+<li>By default Ansible has inventory file saved in location /etc/ansible/hosts. </li>
+<li>In this lab we will create hosts file in the working environment. This file is created from ansible host prompt using <code>cat</code> command.   <strong><em>Note:</em></strong> you should copy and paste the complete section below i.e., starting from <code>cat</code> till <code>EOF</code> (also shown in subsequent screenshot):<pre><code>cat &lt;&lt; EOF &gt;&gt; hosts
+#define global variables, groups and host variables
+[all:vars]
+ansible_connection = local
+user=admin
+pwd=C1sco12345
+gather_fact=no
+[jinja2_spine]
+198.18.4.202
+[jinja2_leaf]
+198.18.4.104
+[spine]
+198.18.4.201
+[leaf]
+198.18.4.101
+198.18.4.103
+[server]
+198.18.134.50 eth1=172.21.140.10 gw=172.21.140.1
+198.18.134.52 eth1=172.21.140.11 gw=172.21.140.1
+198.18.134.53 eth1=172.21.141.11 gw=172.21.141.1
+EOF
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the output of above command:</p>
+<p><img alt="" src="../pic/1-9a-1-hosts.png" /></p>
+<ul>
+<li>Now you may verify the content of this file using below command:<pre><code>[root@rhel7-tools LTRDCN-1572]# more hosts
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the execution of above command:
+<img alt="" src="../pic/1-9a-2-hosts.png" /></p>
+<ul>
+<li>
+<p>Create Ansible config (ansible.cfg) using the same steps as above.  <strong><em>Note:</em></strong> you should copy and paste the complete section below i.e., starting from <code>cat</code> till <code>EOF</code>  (as shown in below screenshot):</p>
+<pre><code>cat &lt;&lt; EOF &gt;&gt; ansible.cfg
+[defaults]
+inventory = hosts
+host_key_checking = false
+record_host_key = true
+stdout_callback = debug
+deprecation_warnings = False
+EOF
+</code></pre>
+</li>
+<li>
+<p>Now you may verify the content of this file using below command:</p>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# more ansible.cfg
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the output of above commands:</p>
+<p><img alt="" src="../pic/1-9a-3-ansible.png" /></p>
+<ul>
+<li>
+<p>Do <code>ls</code> to verify the file that you just created under project folder LTRDCN-1572.   </p>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-9-3-ls.png" /></p>
+</li>
+<li>
+<p>Create host variable folder named <code>host_vars</code> in folder <code>LTRDCN-1572</code> by using below command.  In this lab, we will use host_vars file to define the variables for various hosts (in next bullets):</p>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# mkdir host_vars &amp;&amp; cd host_vars
+</code></pre>
+</li>
+<li>
+<p>Create host variable file for each host in inventory by using the cat command.  The variable file for a switch is created using the below cat command.  <strong>Note:</strong> you can copy and paste starting from <code>cat</code> till <code>EOF</code> (as shown in below screenshot).  <strong>Note:</strong> the spaces in the file are important so do not remove those:</p>
+</li>
+</ul>
+<pre><code class="language-YAML">cat &lt;&lt; EOF &gt;&gt; 198.18.4.101.yml
+---
+  hostname: leaf_1
+  loopback0: 192.168.0.8
+  loopback1: 192.168.0.18
+  router_id: 192.168.0.8
+EOF
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-9a-4-101.png" /></p>
+<ul>
+<li>Now you may verify the content of this file using <code>more 198.18.4.101.yml</code> as shown below:<pre><code>[root@rhel7-tools LTRDCN-1572]# more 198.18.4.101.yml
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-9a-4-101-more.png" /></p>
+<ul>
+<li>Create a new host variable file for next host in inventory.   The variable file for a switch is created using the below cat command.  <strong>Note:</strong> you can copy and paste starting from <code>cat</code> till <code>EOF</code> (as shown in below screenshot).  <strong>Note:</strong> the spaces in the file are important so do not remove those:</li>
+</ul>
+<pre><code class="language-YAML">cat &lt;&lt; EOF &gt;&gt; 198.18.4.103.yml
+---
+  hostname: leaf_3
+  loopback0: 192.168.0.10
+  loopback1: 192.168.0.110
+  router_id: 192.168.0.10
+EOF
+</code></pre>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-9a-4-103.png" /></p>
+<ul>
+<li>Now you may verify the content of this file using <code>more 198.18.4.103.yml</code> as shown below:<pre><code>[root@rhel7-tools LTRDCN-1572]# more 198.18.4.103.yml
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/1-9a-4-103-more.png" /></p>
+<ul>
+<li>Create a new host variable file for next host in inventory. The variable file for a switch is created using the below cat command.  <strong>Note:</strong> you can copy and paste starting from <code>cat</code> till <code>EOF</code> (as shown in below screenshot).  <strong>Note:</strong> the spaces in the file are important so do not remove those:</li>
+</ul>
+<pre><code class="language-YAML">cat &lt;&lt; EOF &gt;&gt; 198.18.4.104.yml
+---
+  hostname: leaf_4
+  loopback0: 192.168.0.11
+  loopback1: 192.168.0.111
+  router_id: 192.168.0.11
+EOF
+</code></pre>
+<ul>
+<li>Now you may verify the content of this file using <code>more 198.18.4.104.yml</code> as shown below:<pre><code>[root@rhel7-tools LTRDCN-1572]# more 198.18.4.104.yml
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the execution of above commands:</p>
+<p><img alt="" src="../pic/1-9a-4-104.png" /></p>
+<ul>
+<li>Create a new host variable file for next host in inventory.  The variable file for a switch is created using the below cat command.  <strong>Note:</strong> you can copy and paste starting from cat till EOF (as shown in below screenshot).  <strong>Note:</strong> the spaces in the file are important so do not remove those:</li>
+</ul>
+<pre><code class="language-YAML">cat &lt;&lt; EOF &gt;&gt; 198.18.4.201.yml
+---
+  hostname: spine-1
+  loopback0: 192.168.0.6
+  loopback1: 192.168.0.100
+  router_id: 192.168.0.6
+EOF
+</code></pre>
+<ul>
+<li>Now you may verify the content of this file using <code>more 198.18.4.201.yml</code> as shown below:<pre><code>[root@rhel7-tools LTRDCN-1572]# more 198.18.4.201.yml
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the execution of above commands:</p>
+<p><img alt="" src="../pic/1-9a-4-201.png" /></p>
+<ul>
+<li>Create a new host variable file for next host in inventory.  The variable file for a switch is created using the below cat command.  <strong>Note:</strong> you can copy and paste starting from cat till EOF (as shown in below screenshot).  <strong>Note:</strong> the spaces in the file are important so do not remove those:</li>
+</ul>
+<pre><code class="language-YAML">cat &lt;&lt; EOF &gt;&gt; 198.18.4.202.yml
+---
+  hostname: spine-2
+  loopback0: 192.168.0.7
+  loopback1: 192.168.0.100
+  router_id: 192.168.0.7
+EOF
+</code></pre>
+<ul>
+<li>Now you may verify the content of this file using <code>more 198.18.4.202.yml</code> as shown below:<pre><code>[root@rhel7-tools LTRDCN-1572]# more 198.18.4.202.yml
+</code></pre>
+</li>
+</ul>
+<p>Below screenshot shows the execution of above commands:</p>
+<p><img alt="" src="../pic/1-9a-4-202.png" /></p>
+<h4 id="step-10-ansible-role-structure">Step 10: Ansible role structure</h4>
+<p>Role is very useful technique to manage a set of playbooks in Ansible. 
+In this lab, we will use two different playbooks to manage configuration for Spine and Leaf switches. </p>
+<p>We will use role structure and manage the two plays into single playbook. 
+A role directory structure contains several directories of defaults, vars, files, handlers, meta, tasks and templates. </p>
+<p>In this lab:</p>
+<ul>
+<li>we will use vars, templates and tasks folders </li>
+<li>main.yml file in <code>/vars</code>  folder contains dictionary of variables for this role </li>
+<li>main.yml file in <code>/tasks</code> folder contains the Ansible playbook for this role</li>
+</ul>
+<p>To proceed further with roles in subsequent Tasks:</p>
+<p>•   Create roles directory in folder LTRDCN-1572 by issuing below commands:</p>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# cd /root/LTRDCN-1572
+[root@rhel7-tools LTRDCN-1572]# mkdir roles
+</code></pre>
+<p>This will be used in the subsequent tasks in this lab.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../task2-first-ansible/" class="btn btn-neutral float-right" title="Task 2 - First Simple Ansible Playbook">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../intro/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/fchaudhr/holdcn-1010.git/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../intro/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../task2-first-ansible/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

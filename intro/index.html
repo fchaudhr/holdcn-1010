@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Introduction - Cisco Live 2021 HOLDCN-1010</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Introduction";
+    var mkdocs_page_input_path = "intro.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Cisco Live 2021 HOLDCN-1010</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Introduction</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Task1-ansible-node/">Task 1 - Prepare Ansible node</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task2-first-ansible/">Task 2 - First Simple Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task3-vxlan-jinja2/">Task 3 - Use of Jinja2 templates with Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task4-vxlan-nxos/">Task 4 - Config switches using Ansible NXOS modules</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task5-day2-operation/">Task 5 - Day 2 Operations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixA-F5/">Appendix A - F5</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixB-Upgrade/">Appendix B - Upgrade</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Cisco Live 2021 HOLDCN-1010</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Introduction</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/fchaudhr/holdcn-1010.git/edit/master/docs/intro.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="vxlan">VXLAN</h2>
+<p>VXLAN stands for Virtual Extensible Local Area Network. VXLAN is a L2 overlay scheme on top of L3 network or we can say it is a L2 in layer 3 tunnel. It runs over the existing networks and provides the means to stretch the L2 network. Only VMs within the same VXLAN segment can communicate with each other. Each VXLAN segment is identified by a 24 bit segment ID called “VXLAN Network Identifier (VNI)”.  This help overcome 4094 VLAN scale limitation and able to extend it to 224 segments.
+VXLAN uses BGP as its control plane for Overlay. It makes it forwarding decisions at VTEPs (Virtual tunnel end points) for layer-2 and layer-3. Forwarding happens based on MAC or IP learnt via control plane (MP-BGP EVPN) . VXLAN uses IGP, PIM and BGP as its underlay in the fabric. 
+Below are some of the terminologies that will be used in the lab:</p>
+<ul>
+<li><strong>VNI / VNID</strong> – VXLAN Network Identifier. This replaces VLAN ID </li>
+<li><strong>VTEP</strong> – VXLAN Tunnel End Point.<ul>
+<li>This is the end point where the box performs VXLAN encap / decap
+This could be physical HW (Nexus9k) or Virtual (Nexus 1000v, Nexus 9000v)</li>
+</ul>
+</li>
+<li><strong>VXLAN Segment</strong> -  The resulting layer 2 overlay network</li>
+<li><strong>VXLAN Gateway</strong> – It is a device that forwards traffic between VXLANS. It can be both L2 and L3 forwarding</li>
+<li><strong>NVE</strong> – Network Virtualization Edge<ul>
+<li>NVE is tunnel interface. It represents VTEP</li>
+</ul>
+</li>
+</ul>
+<h2 id="ansible">Ansible</h2>
+<p>Ansible is an agentless open source software that can be used for configuration management, deployment and orchestration of deployment. The scripts in Ansible are called playbooks; playbook is in YAML format that was desgiened to be easy for humans to read and write. Playbooks include one or more plays, each play include one or more tasks. Each task is associated with one module, which is what gets executed in the playbook. Modules are python scripts that ship with Ansible installation. During the lab, you will be introduced to multiple NXOS modules and ansible template module. </p>
+<p>You can find all Ansible modules documentation at below url:
+<a href="http://docs.ansible.com/ansible/latest/list_of_all_modules.html">http://docs.ansible.com/ansible/latest/list_of_all_modules.html</a>
+Below are some of the terminologies that will be used in the lab:</p>
+<ul>
+<li><strong>Host</strong>: remote machines that Ansible manages  </li>
+<li><strong>Group</strong>: several hosts that can be configured together and share common verables </li>
+<li><strong>Inventory</strong>: file descripts hosts and groups in Ansible.</li>
+<li><strong>Variable</strong>: names of value (int, str, dic, list) referenced in playbook or template</li>
+<li><strong>YAML</strong>: data format for Playbook or Variables in Ansible </li>
+<li><strong>Playbook</strong>: the script to orchestrate, automate, deploy system in Ansible. One playbook can include multiple plays. </li>
+<li><strong>Roles</strong>: group of tasks, templates to implement specific behavior</li>
+<li><strong>Jinja2</strong>: a Python based tempting language</li>
+</ul>
+<p><img alt="" src="../pic/Picture1.png" /></p>
+<h2 id="about-this-lab">About this lab</h2>
+<p>As a standardized overlay technology, multiple vendors have adopted VXLAN as datacenter solution to provide scalability and allow layer 2 across IP network. MP-BPG EVPN as VXLAN control plane protocol provides a robust scalable solution to overcome the limitation in VXLAN flood and learn mode.
+As an open source automation tool, Ansible provides the same framework for network administrators to automate network infrastructure as the rest IT organization. 
+This lab demostates the possibility of using Ansible to automate datacenter VXLAN fabric day 1 provisiong and day 2 operations. </p>
+<h3 id="lab-flow">Lab Flow</h3>
+<p>Lab guide will walk the attendees through the below activities:
+1.  Ansible installation 
+2.  Ansible playbook 
+3.  Day 1 automation using Ansible 
+4.  Day 2 automation using Ansible 
+5.  Day 0 automation 
+6. L4-L7 Service insertion</p>
+<h3 id="lab-access">Lab Access</h3>
+<p>Below table provides the IP addresses and credentials for the devices used in this lab: </p>
+<table>
+<thead>
+<tr>
+<th align="center">Device</th>
+<th align="center">SSH or Console (C)</th>
+<th align="center">Credentials</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Spine-1</td>
+<td align="center">C: 198.18.133.33:1030 .... SSH: 198.18.4.201</td>
+<td align="center">admin/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Spine-2</td>
+<td align="center">C: 198.18.133.33:1040 .... SSH: 198.18.4.202</td>
+<td align="center">admin/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Leaf-1</td>
+<td align="center">C: 198.18.133.33:1050 .... SSH: 198.18.4.101</td>
+<td align="center">admin/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Leaf-3</td>
+<td align="center">C: 198.18.133.33:1070 .... SSH: 198.18.4.103</td>
+<td align="center">admin/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Leaf-4</td>
+<td align="center">C: 198.18.1333.33:1080 ... SSH:  198.18.4.104</td>
+<td align="center">admin/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Server-1</td>
+<td align="center">SSH: 198.18.134.50</td>
+<td align="center">root/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Server-3</td>
+<td align="center">SSH: 198.18.134.52</td>
+<td align="center">root/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Server-4</td>
+<td align="center">SSH: 198.18.134.53</td>
+<td align="center">root/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Ansible Server</td>
+<td align="center">198.18.134.150</td>
+<td align="center">root/C1sco12345</td>
+</tr>
+<tr>
+<td align="center">Remote Workstation</td>
+<td align="center">198.18.133.36</td>
+<td align="center">demouser/C1sco12345</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-topology">Lab topology</h3>
+<p>Below picture shows the lab topology:</p>
+<p><img alt="" src="../pic/2-topology-new.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Task1-ansible-node/" class="btn btn-neutral float-right" title="Task 1 - Prepare Ansible node">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/fchaudhr/holdcn-1010.git/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Task1-ansible-node/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

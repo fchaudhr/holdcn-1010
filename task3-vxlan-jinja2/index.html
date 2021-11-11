@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Task 3 - Use of Jinja2 templates with Ansible Playbook - Cisco Live 2021 HOLDCN-1010</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Task 3 - Use of Jinja2 templates with Ansible Playbook";
+    var mkdocs_page_input_path = "task3-vxlan-jinja2.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Cisco Live 2021 HOLDCN-1010</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../intro/">Introduction</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Task1-ansible-node/">Task 1 - Prepare Ansible node</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task2-first-ansible/">Task 2 - First Simple Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Task 3 - Use of Jinja2 templates with Ansible Playbook</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task4-vxlan-nxos/">Task 4 - Config switches using Ansible NXOS modules</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task5-day2-operation/">Task 5 - Day 2 Operations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixA-F5/">Appendix A - F5</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixB-Upgrade/">Appendix B - Upgrade</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Cisco Live 2021 HOLDCN-1010</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Task 3 - Use of Jinja2 templates with Ansible Playbook</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/fchaudhr/holdcn-1010.git/edit/master/docs/task3-vxlan-jinja2.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>In this task, we are going to install Jinja2 - that provides templating option.  In this section, we use Jinja2 to create template for spine and leaf and configure VXLAN fabric using this Jinja2 templates. </p>
+<p><img alt="" src="../pic/3-0-1-new.png" /></p>
+<p>Jinja2 template looks just like the NXOS configurations. We abstract the variables out of the configuration and use simple for loop to feed variables into the template. </p>
+<hr />
+<h3 id="step-1-install-jinja2">Step 1: Install jinja2</h3>
+<ul>
+<li>On the Ansible node, install jinja2 using <code>pip install jinja2</code> command.  If it is already installed, we will get the message “requirement is satisfied”:</li>
+</ul>
+<pre><code>        [root@rhel7-tools ~]# pip install jinja2
+</code></pre>
+<p>Below screenshot shows the output of above command:</p>
+<p><img alt="" src="../pic/3-1-1-new.png" /></p>
+<hr />
+<h3 id="step-2-playbook-for-jinja2-spine">Step 2: Playbook for jinja2 Spine</h3>
+<p>In this section, we will use Jina2 template and Ansible to provision the VXLAN Fabric. </p>
+<ul>
+<li>
+<p>Switch to “Atom”, <strong>right click</strong> on the folder <code>LTRDCN-1572</code> and Click <code>New File</code> to create a new playbook named <code>jinja2_fabric.yml</code>. </p>
+<p><img alt="" src="../pic/3-2-1.png" /></p>
+</li>
+<li>
+<p>Name the new file <code>jinja2_fabric.yml</code> and hit enter as shown below. It will create this new file:</p>
+</li>
+</ul>
+<p><img alt="" src="../pic/3-2-1a.png" /></p>
+<ul>
+<li>
+<p>Also, on the lower bar of the ATOM, verify that  file grammar of <strong>YAML</strong> is selected instead of default "<strong>Plain Text</strong>".  If <strong>YAML</strong> is not selected, then you should <strong>choose</strong> it from the listed options.</p>
+</li>
+<li>
+<p>Now enter below data in this playbook:</p>
+</li>
+</ul>
+<pre><code class="language-YAML">---
+  - hosts: jinja2_spine
+    connection: local
+    roles:
+    - jinja2_spine
+
+</code></pre>
+<ul>
+<li>
+<p>The contents of the <strong>jinja2_fabric.yml</strong> file should look like</p>
+<p><img alt="" src="../pic/3-2-2-new.png" /></p>
+</li>
+<li>
+<p><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package</p>
+</li>
+<li>
+<p>On the MTputty, go back to the <strong>ssh</strong> session to Ansible Server node (198.18.134.150). </p>
+</li>
+<li>
+<p>On Ansible server node (198.18.134.150), <strong>verify</strong> that the (below highlighted) 2 groups exists of <em>jinja2_spine</em> and <em>jinja2_leaf</em> in the inventory file named "<strong>hosts</strong>" (under LTRDCN-1572 directory) exists by issuing below commands:</p>
+</li>
+</ul>
+<pre><code>[root@rhel7-tools ~]# cd /root/LTRDCN-1572
+[root@rhel7-tools ~]# more hosts
+</code></pre>
+<p>Below screenshot confirms the ouptut and appropriate IP addresses of above command:</p>
+<p><img alt="" src="../pic/3-2-3.png" /></p>
+<hr />
+<h3 id="step-3-create-new-roles-and-vars">Step 3: Create new roles and vars</h3>
+<p>In this section, we will create two new roles for provisioning Fabric with Jina2 template.</p>
+<ul>
+<li>
+<p>On the MTputty, go back to Ansible Server node (198.18.134.150), switch to ‘<strong>roles</strong>’ directory; <strong>create</strong> ‘jinja2_spine’ and ‘jinja2_leaf’ roles using ansible-galaxy using below commands: </p>
+<pre><code>[root@rhel7-tools ~]# cd ~/LTRDCN-1572/
+[root@rhel7-tools LTRDCN-1572]# cd roles/
+[root@rhel7-tools roles]# ansible-galaxy init jinja2_spine&amp;&amp;ansible-galaxy init jinja2_leaf
+</code></pre>
+</li>
+<li>
+<p>Below screenshot shows the output of above command:</p>
+</li>
+</ul>
+<p><img alt="" src="../pic/3-3-1.png" /></p>
+<p><em>Note:</em> ‘<strong>ansible-galaxy</strong>’ will initialize the role structure and create necessary folders with default name like ‘tasks’, ‘template’, ‘vars’ etc.</p>
+<ul>
+<li>
+<p><strong>change directory</strong> path to LTRDCN-1572/roles/jinja2_spine and check the content of local directory (<code>ls</code>) as per below commands:</p>
+<pre><code>[root@rhel7-tools]# cd ~/LTRDCN-1572/roles/jinja2_spine/
+[root@rhel7-tools jinja2_spine]# ls
+</code></pre>
+</li>
+<li>
+<p>Below screenshot shows the output of above file.  Note that various directories including tasks, templates, vars exists.  We will use these in later steps. </p>
+<p><img alt="" src="../pic/3-3-2.png" /></p>
+</li>
+</ul>
+<p>Next:</p>
+<ul>
+<li>
+<p><strong>Create</strong> empty jinja2 template files for spine and leaf under templates folder for each role by running below commands:</p>
+<pre><code>[root@rhel7-tools roles]# cd ~/LTRDCN-1572/roles
+[root@rhel7-tools roles]# touch jinja2_spine/templates/spine.j2
+[root@rhel7-tools roles]# touch jinja2_leaf/templates/leaf.j2
+</code></pre>
+</li>
+<li>
+<p>Switch to “<strong>Atom</strong>” and sync the new created folders between Ansible node and Remote desktop by pressing <strong>Right Click</strong> on the folder <code>LTRDDCN-1572</code>, then open <code>Remote Sync</code> select <code>Download Folder</code> as shown below:</p>
+</li>
+</ul>
+<p><img alt="" src="../pic/3-3-3.png" /></p>
+<ul>
+<li>Once the download is done you should see the new folder &amp; files (<code>roles</code>) appear on ATOM as well.</li>
+</ul>
+<hr />
+<h3 id="step-4-create-variable-file-for-jina2_spine-role">Step 4: Create variable file for “jina2_spine” role</h3>
+<p>“<strong>ansible-galaxy</strong>” automatically creates empty “<strong>main.yml</strong>” file under “<strong>vars</strong>” folder. We can use “<strong>Atom</strong>” to edit the main.yml file to include the following variables that will be used in jinja2 template. </p>
+<ul>
+<li>
+<p>Switch to <strong>ATOM</strong>, then open up the project folder <code>LTRDCN-1572</code> from the left pane and <strong>open</strong> <code>main.yml</code> file under “<strong>roles/jinja2_spine/vars/</strong>” as shown below:</p>
+<p><img alt="" src="../pic/3-4-1.png" /></p>
+</li>
+<li>
+<p>use “<strong>Atom</strong>” to edit the “<strong>main.yml</strong>” file to include the following variables that will be used in jinja2 template.  You can copy and paste all of the below content into main.yml file.  Note: as per steps in previous tasks, be careful with YAML content since its space sensitive.</p>
+</li>
+</ul>
+<pre><code class="language-YAML">---
+# vars file for jinja2_spine
+  nxos_provider:
+    username: &quot;{{ user }}&quot;
+    password: &quot;{{ pwd }}&quot;
+    timeout: 100
+    host: &quot;{{ inventory_hostname }}&quot;
+  asn: 65000
+  bgp_neighbors:
+  -  remote_as: 65000
+     neighbor: 192.168.0.8
+     update_source: Loopback0
+  -  remote_as: 65000
+     neighbor: 192.168.0.10
+     update_source: Loopback0
+  -  remote_as: 65000
+     neighbor: 192.168.0.11
+     update_source: Loopback0
+  L3_interfaces:
+  -  interface: Ethernet 1/1
+  -  interface: Ethernet 1/2
+  -  interface: Ethernet 1/3
+  -  interface: Ethernet 1/4
+  -  interface: loopback 0
+  -  interface: loopback 1
+  s1_loopback: 192.168.0.6
+  s2_loopback: 192.168.0.7
+</code></pre>
+<ul>
+<li>
+<p>Contents of the ‘<strong>main.yml</strong>’ file should look like below:</p>
+<p><img alt="" src="../pic/3-4-2.png" /></p>
+</li>
+<li>
+<p><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package. </p>
+</li>
+</ul>
+<hr />
+<h3 id="step-5-create-jinja2-template-for-spine-role">Step 5: Create Jinja2 template for spine role</h3>
+<ul>
+<li>On <strong>ATOM</strong> open up the project folder <code>LTRDCN-1572</code> from the left pane and <strong>open</strong> <code>spine.j2</code> file under “<strong>roles/jinja2_spine/templates</strong>” as shown below:</li>
+</ul>
+<p><img alt="" src="../pic/3-5-0.png" /></p>
+<p><strong>NOTE: If the file does not appear on the ATOM, then go ahead and execute below 4 steps to get it sync.  If the <code>spine.j2</code> file appears in above folder then you can skip below 4 steps</strong>:</p>
+<ol>
+<li>On Ansible server (198.18.134.150) using your SSH session, change Directory to folder LTRDCN-1572 using below command:</li>
+</ol>
+<pre><code>[root@rhel7-tools ~]# cd ~/LTRDCN-1572 
+</code></pre>
+<ol>
+<li>further, change Directory (cd) to folder roles/jinja2_spine/templates using below command: </li>
+</ol>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# cd roles/jinja2_spine/templates
+</code></pre>
+<ol>
+<li>Type <code>touch spine.j2</code> as shown below:</li>
+</ol>
+<pre><code>[root@rhel7-tools templates]# touch spine.j2
+</code></pre>
+<ol>
+<li>After entering the command, go back to ATOM,  <strong>right click</strong> on folder <code>LTRDCN-1572</code>, scroll to choose option <code>Remote Sync</code> option and choose <code>Download Folder</code> as shown below: </li>
+</ol>
+<p><img alt="" src="../pic/3-5-1.png" /></p>
+<p>Now that the file/folder appears properly on ATOM, go ahead and proceed with further steps:</p>
+<ul>
+<li>
+<p>To reduce the typo, you can download jina2 template from the <strong>box</strong> folder spine.j2. Below is the link to this folder:</p>
+<p><a href="http://cs.co/LTRDCN-1572">http://cs.co/LTRDCN-1572</a></p>
+</li>
+<li>
+<p>The file would be under <code>LTRDCN-1572/roles/jinja2_spine/templates/spine.j2</code> (link below) as shown in below screenshot:</p>
+<p><a href="https://cisco.app.box.com/folder/44981931157">https://cisco.app.box.com/folder/44981931157
+</a></p>
+<p><img alt="" src="../pic/3-5-2.png" /></p>
+</li>
+<li>
+<p>After the file is downloaded to the PC (on your RDP session), go to the downloads folder. Move (or copy) the file from the downloads folder and paste the file in the projects folder</p>
+<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>LTRDC-1572</code> --&gt; <code>roles</code> --&gt; <code>jinja2_spine</code> --&gt; <code>templates</code></p>
+<p>as shown below:</p>
+<p><img alt="" src="../pic/3-5-3.png" /></p>
+</li>
+<li>
+<p>After moving/copying this file to above folder location, open this file on ATOM.  You do this by going to <code>File</code> then <code>Open File…</code> on ATOM, and browse to this <code>spine.j2</code> file that was just saved in <code>X:\LTRDCN-1572\roles\jinja2_spine\templates</code> as shown below:
+    <img alt="" src="../pic/3-5-4.png" /></p>
+</li>
+<li>
+<p>After opening “<strong>spine.j2</strong>” file from ATOM (as shown in below screenshot confirming the updated content), go to <code>File</code> –-&gt; <code>Save</code> to push template file to Ansible node:</p>
+<p><img alt="" src="../pic/3-5-5.png" /></p>
+</li>
+<li>
+<p>You can verify that updated file content is on Ansible server (198.18.134.150) using your SSH session by issuing below commands:</p>
+</li>
+</ul>
+<pre><code>[root@rhel7-tools templates]# cd /root/LTRDCN-1572/roles/jinja2_spine/templates
+[root@rhel7-tools templates]# more spine.j2
+</code></pre>
+<p>Partial output of above command is shown in below screenshot confirming :
+  <img alt="" src="../pic/3-5-6.png" /></p>
+<hr />
+<h3 id="step-6-create-playbook-for-jinja2_spine-role">Step 6: Create playbook for jinja2_spine role</h3>
+<p>The playbook for jinja2_spine roles has two tasks. First task uses ansible <strong>template</strong> module to generate configuration file based on jinja2 template created in last step. The configuration file is saved in “<strong>file</strong>” folder. Second task is push the configuration to switch. </p>
+<p>“<strong>ansible-galaxy</strong>” automatically creates empty “<strong>main.yml</strong>” file under “<strong>tasks</strong>” folder.  We are going to use “<strong>Atom</strong>” to edit the <strong>main.yml</strong> file. </p>
+<ul>
+<li>On ATOM, open up the project folder <code>LTRDCN-1572</code> and edit <code>main.yml</code> file under <code>roles/jinja2_spine/tasks/</code> to include following: </li>
+</ul>
+<pre><code class="language-YAML">---
+# tasks file for jinja2_spine
+  - name: Generate Spine Config
+    template: src=spine.j2 dest=roles/jinja2_spine/files/{{inventory_hostname}}.cfg
+  - name: Push Spine Config
+    nxos_config:
+      src: roles/jinja2_spine/files/{{inventory_hostname}}.cfg
+      match: none
+      provider: &quot;{{ nxos_provider }}&quot;
+</code></pre>
+<ul>
+<li>
+<p>Contents of the ‘<strong>main.yml</strong>’ file should look like below:</p>
+<p><img alt="" src="../pic/3-6-1.png" /></p>
+</li>
+<li>
+<p><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package. </p>
+</li>
+</ul>
+<p><strong>NOTE:</strong> In the above YAML file, ansible module named “<strong>nxos_config</strong>” is used.  This module performs below activities:</p>
+<ul>
+<li>It uses source path of the file (“<strong><em>src</em></strong>”) that contains the configuration or configuration template to load into spine</li>
+<li>Since “<strong><em>match</em></strong>” option is set to none (yes), hence the module will not attempt to compare the source configuration with the running configuration on the remote device.</li>
+</ul>
+<hr />
+<h3 id="step-7-run-jinja2_fabric-playbook">Step 7: Run Jinja2_fabric playbook</h3>
+<p>In this section you will run the playbook created in step 2 (in this task 3), this will generate configuration file for Spine-2 switche from the template. </p>
+<p>The playbook will also push the configuration file to Spine-2 switches. </p>
+<ul>
+<li>
+<p>Run the ansible playbook by going to folder LTRDC-1572 and executing the below commands:</p>
+<pre><code>[root@rhel7-tools roles]# cd ~/LTRDCN-1572/
+[root@rhel7-tools LTRDCN-1572]# ansible-playbook jinja2_fabric.yml
+</code></pre>
+<p><strong>Note: It will take few minutes to push configuration</strong></p>
+<p>Below screenshot shows the execution of above playbook:</p>
+<p><img alt="" src="../pic/3-7-1.png" /></p>
+</li>
+</ul>
+<p>To verify the execution of this playbook, you can:</p>
+<ul>
+<li>
+<p><strong>Login</strong> to <strong>Spine-2 </strong>switch (<strong>on MTputty</strong>) to verify configuration has been pushed by double clicking the spine-2 icon in the left pane on MTputty.  If prompted then login with credentials admin/C1sco12345</p>
+</li>
+<li>
+<p>Execute <code>show run bgp</code> command on the switch to confirm the configurations have been provisioned (as shown below):</p>
+<p><img alt="" src="../pic/3-7-2-new.png" /></p>
+</li>
+</ul>
+<hr />
+<h3 id="step-8-modify-playbook-for-leaf">Step 8: Modify playbook for Leaf</h3>
+<p>In this section, we will use Jina2 template and Ansible to provision the VXLAN Fabric on leaf-4.   We are going to add jinja2_leaf this time to the already created playbook in step 2.</p>
+<ul>
+<li>Switch to “<strong>Atom</strong>”, click on the folder <code>LTRDDCN-1572</code>, edit the existing playbook <code>jinja2_fabric.yml</code> file for a role for leaf (named jinja2_leaf).  Add the below content at the end of existing file (i.e., add the below content to existing content in this file (do not overwrite existing content):</li>
+</ul>
+<pre><code class="language-YAML">- hosts: jinja2_leaf
+  connection: local
+  roles:
+    - jinja2_leaf
+</code></pre>
+<ul>
+<li>Below screenshot shows the contents of <strong>jinja2_fabric.yml</strong> file in Atom after adding the above configs:</li>
+</ul>
+<p><img alt="" src="../pic/3-8-1.png" /></p>
+<ul>
+<li><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package. </li>
+</ul>
+<hr />
+<h3 id="step-9-variable-file-for-jinja2_leaf-role">Step 9: Variable file for jinja2_leaf role</h3>
+<ul>
+<li>On ATOM, open up the project folder <code>LTRDCN-1572</code> and edit <code>main.yml</code> file under <code>roles/jinja2_leaf/vars/</code> to include following:</li>
+</ul>
+<pre><code class="language-YAML">---
+# vars file for jinja2_leaf
+  nxos_provider:
+    username: &quot;{{ user }}&quot;
+    password: &quot;{{ pwd }}&quot;
+    timeout: 100
+    host: &quot;{{ inventory_hostname }}&quot;
+  asn: 65000
+  bgp_neighbors:
+  -  remote_as: 65000
+     neighbor: 192.168.0.6
+     update_source: Loopback0
+  -  remote_as: 65000
+     neighbor: 192.168.0.7
+     update_source: Loopback0
+  rp_address: 192.168.0.100
+  L3_interfaces:
+  -  interface: Ethernet 1/1
+  -  interface: Ethernet 1/2
+  -  interface: loopback 0
+  -  interface: loopback 1
+  L2VNI:
+  -  vlan_id: 140
+     vni: 50140
+     ip_add: 172.21.140.1
+     mask: 24
+     vlan_name: L2-VNI-140-Tenant1
+     mcast: 239.0.0.140
+  -  vlan_id: 141
+     vni: 50141
+     ip_add: 172.21.141.1
+     mask: 24
+     vlan_name: L2-VNI-141-Tenant1
+     mcast: 239.0.0.141
+  L3VNI:
+  -  vlan_id: 999
+     vlan_name: L3-VNI-999-Tenant1
+     vni: 50999
+</code></pre>
+<ul>
+<li>
+<p>Below screenshot shows the contents of jinja2_leaf\vars\main.yml file in Atom:</p>
+<p><img alt="" src="../pic/3-9-1.png" /></p>
+</li>
+<li>
+<p><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package. </p>
+</li>
+</ul>
+<hr />
+<h3 id="step-10-jinja2-template-for-leaf-role">Step 10: Jinja2 template for leaf role</h3>
+<ul>
+<li>On ATOM, open up the project folder <code>LTRDCN-1572</code> and open <strong>leaf.j2</strong> file under “<strong>roles/jinja2_leaf/templates/</strong>”</li>
+</ul>
+<p><strong>NOTE: if the file does not appear on the ATOM, then go ahead and execute below 4 steps to get it sync.  If the <code>leaf.j2</code> file appears in above folder then you can skip below 4 steps</strong>:</p>
+<ol>
+<li>
+<p>On MTputty, change Directory to folder LTRDCN-1572 on Ansible server (198.18.134.150) using below command:</p>
+<pre><code>cd ~/LTRDC-1572
+</code></pre>
+</li>
+<li>
+<p>further, change Directory (cd) to folder roles/jinja2_leaf/templates using below command:</p>
+<pre><code>cd roles/jinja2_leaf/templates
+</code></pre>
+</li>
+<li>
+<p>Type <code>touch leaf.j2</code></p>
+</li>
+<li>After entering the command, go back to ATOM,  <strong>right click</strong> on folder <code>LTRDCN-1572</code>, scroll to choose option <code>Remote Sync</code> option and choose <code>Download Folder</code></li>
+</ol>
+<p>Now that the file/folder appears properly on ATOM, go ahead and proceed with further steps:</p>
+<ul>
+<li>
+<p>To reduce the typo, you can download jina2 template from the <strong>box</strong> folder leaf.j2. Below is the link to this folder:</p>
+</li>
+<li>
+<p>To reduce the typo, you can download jina2 template from the <strong>box</strong> folder leaf.j2. Below is the link to this folder:</p>
+<p><a href="http://cs.co/LTRDCN-1572">http://cs.co/LTRDCN-1572</a></p>
+</li>
+<li>
+<p>The file would be under <code>LTRDCN-1572/roles/jinja2_leaf/templates/leaf.j2</code> (link below) as shown in below screenshot:</p>
+<p><a href="https://cisco.app.box.com/folder/44981518497">https://cisco.app.box.com/folder/44981518497
+</a></p>
+<p><img alt="" src="../pic/3-10-1.png" /></p>
+</li>
+<li>
+<p>After the file is downloaded to the PC (on your RDP session), go to the downloads folder. Move (or copy) the file from the downloads folder and paste the file in the projects folder</p>
+<p><code>TFTP_Data (\\AD1) (X:)</code> --&gt;  <code>LTRDC-1572</code> --&gt; <code>roles</code> --&gt; <code>jinja2_leaf</code> --&gt; <code>templates</code></p>
+<p>as shown below:</p>
+<p><img alt="" src="../pic/3-10-2.png" /></p>
+</li>
+<li>
+<p>On ATOM, go to <code>File</code> then <code>Open File…</code> and browse to this <code>leaf.j2</code> that was just saved in <code>X:\LTRDCN-1572\roles\jinja2_leaf\templates</code> as shown below screenshots:
+    <img alt="" src="../pic/3-10-3.png" /></p>
+<p><img alt="" src="../pic/3-10-4.png" /></p>
+</li>
+<li>
+<p>After opening “<strong>leaf.j2</strong>” file from ATOM, go to <code>File</code> – <code>Save</code> to push template file to Ansible node:</p>
+</li>
+</ul>
+<hr />
+<h3 id="step-11-create-playbook-for-jinja2_leaf-role">Step 11: Create playbook for jinja2_leaf role</h3>
+<p>The playbook for jinja2_leaf roles has two tasks. </p>
+<ol>
+<li>First task uses ansible template module to generate configuration file based on jinja2 template created in last step. The configuration file is saved in “file” folder. </li>
+<li>Second task is to push the configuration to switch. </li>
+</ol>
+<p>“<strong>ansible-galaxy</strong>” automatically creates empty “<strong>main.yml</strong>” file under “<strong>tasks</strong>” folder.  We are going to use “<strong>Atom</strong>” to edit this main.yml file. </p>
+<ul>
+<li>On ATOM, open up the project folder <code>LTRDCN-1572</code> and edit “<strong>main.yml</strong>” file under “<strong>roles/jinja2_leaf/tasks/</strong>” to include following:</li>
+</ul>
+<pre><code class="language-YAML">---
+# tasks file for jinja2_leaf
+  - name: Generate Leaf Config
+    template: src=leaf.j2 dest=roles/jinja2_leaf/files/{{inventory_hostname}}.cfg
+  - name: Push Leaf Config
+    nxos_config:
+      src: roles/jinja2_leaf/files/{{inventory_hostname}}.cfg
+      match: none
+      provider: &quot;{{ nxos_provider }}&quot;
+</code></pre>
+<p>Below screenshot shows how the contents of <strong>jinja2_leaf/taks/main.yml</strong> file looks like in Atom:</p>
+<p><img alt="" src="../pic/3-11-1.png" /></p>
+<hr />
+<h3 id="step-12-run-jinja2_fabric-playbook">Step 12: Run Jinja2_fabric playbook</h3>
+<p>In this section you will run the playbook created in step 8, this will generate configuration file for Spine-2 and Leaf-4 switches. It will also push the configuration file to both switches. </p>
+<ul>
+<li>
+<p>Before running the ansible-playbook, you may <strong>log</strong> into the leaf-4 (in MTputty SSH session) and verify that no bgp configurations exist by running <code>show running bgp</code> command as shown below:</p>
+<p><img alt="" src="../pic/3-12-0.png" /></p>
+</li>
+</ul>
+<p>NOTE: It might take couple of minutes for the configuration to be pushed to via the Ansible Server. It is working in the background. </p>
+<ul>
+<li>
+<p>On the Ansible node (in MTputty SSH session), run the command (<code>ansible-playbook jinja2_fabric.yml</code>) to execute the playbook as shown below:</p>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# ansible-playbook jinja2_fabric.yml
+</code></pre>
+<p>Below screenshot shows the output of above command:</p>
+<p><img alt="" src="../pic/3-12-1.png" /></p>
+</li>
+<li>
+<p>After the configuration push is successful, <strong>login</strong> (on MTputty SSH session) to <strong>leaf-4</strong> switch to verify configuration has been pushed by running below command:</p>
+<pre><code>show running-config bgp
+</code></pre>
+<p>The output of above command is shown below:</p>
+<p><img alt="" src="../pic/3-12-2.png" /></p>
+</li>
+</ul>
+<hr />
+<p>Congrats: you have successfully concluded this task by using jinja2 templates with Ansible for Cisco Nexus switches</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../task4-vxlan-nxos/" class="btn btn-neutral float-right" title="Task 4 - Config switches using Ansible NXOS modules">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../task2-first-ansible/" class="btn btn-neutral" title="Task 2 - First Simple Ansible Playbook"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/fchaudhr/holdcn-1010.git/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../task2-first-ansible/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../task4-vxlan-nxos/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

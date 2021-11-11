@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>appendixB POAP - Cisco Live 2021 HOLDCN-1010</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "appendixB POAP";
+    var mkdocs_page_input_path = "appendixB-POAP.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Cisco Live 2021 HOLDCN-1010</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../intro/">Introduction</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Task1-ansible-node/">Task 1 - Prepare Ansible node</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task2-first-ansible/">Task 2 - First Simple Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task3-vxlan-jinja2/">Task 3 - Use of Jinja2 templates with Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task4-vxlan-nxos/">Task 4 - Config switches using Ansible NXOS modules</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task5-day2-operation/">Task 5 - Day 2 Operations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixA-F5/">Appendix A - F5</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixB-Upgrade/">Appendix B - Upgrade</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Cisco Live 2021 HOLDCN-1010</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>appendixB POAP</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/fchaudhr/holdcn-1010.git/edit/master/docs/appendixB-POAP.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="appendix-b-day-0-automation-using-poap">Appendix B: Day 0 automation using POAP</h1>
+<p>In this section, you will deploy Power On Auto Provisioning (POAP) for leaf4 in DCNM. </p>
+<table>
+<thead>
+<tr>
+<th>mgmt</th>
+<th>Loopback0</th>
+<th>Loopback1</th>
+<th>Eth1/1</th>
+<th>Eth1/2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>198.18.4.104</td>
+<td>198.168.0.11</td>
+<td>198.168.0.111</td>
+<td>10.0.128.2</td>
+<td>10.0.128.18</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-1">Step 1:</h3>
+<ul>
+<li>Open Google Chrome and login Cisco DCNM (https://198.18.134.200) using username/password <strong>admin/C1sco12345</strong>  </li>
+</ul>
+<p><img alt="" src="../pic/b-1-1.png" /></p>
+<h3 id="step-2">Step 2:</h3>
+<ul>
+<li>On the left side menu, click Configuration &gt; Deploy &gt; POAP</li>
+</ul>
+<p><img alt="" src="../pic/b-2-1.png" /></p>
+<h3 id="step-3">Step 3:</h3>
+<ul>
+<li>Click DHCP Scopes on POAP page</li>
+</ul>
+<p><img alt="" src="../pic/b-3-1.png" /></p>
+<h3 id="step-4">Step 4:</h3>
+<ul>
+<li>Click plus sign to add new DHCP scope, name it <strong>‘vxlan_evpn_leaf’</strong> add DCHP range <strong>‘198.18.4.100-198.18.4.104’</strong> as IP pool </li>
+</ul>
+<p><img alt="" src="../pic/b-4-1.png" /></p>
+<h3 id="step-5">Step 5:</h3>
+<ul>
+<li>click OK to close the DHCP scope window</li>
+</ul>
+<h3 id="step-6">Step 6:</h3>
+<ul>
+<li>Click left side menu Configure &gt; Deploy &gt; POAP</li>
+</ul>
+<h3 id="step-7">Step 7:</h3>
+<ul>
+<li>Click Images and Configuration on the POAP page</li>
+</ul>
+<p><img alt="" src="../pic/b-7-1.png" /></p>
+<h3 id="step-8">Step 8:</h3>
+<ul>
+<li>Check the <strong>Default_SCP_Repository</strong>, click <strong>File Browser</strong> to verify image nxos.7.0.3.I7.0.154.bin file is in the repository. </li>
+</ul>
+<p><img alt="" src="../pic/b-8-1.png" /></p>
+<h3 id="step-9">Step 9:</h3>
+<ul>
+<li>Click left side menu Configure &gt; Deploy &gt; POAP</li>
+</ul>
+<h3 id="step-10">Step 10:</h3>
+<ul>
+<li>Client ‘template’ under POAP Definitions</li>
+</ul>
+<p><img alt="" src="../pic/b-10-1.png" /></p>
+<h3 id="step-11">Step 11:</h3>
+<ul>
+<li>Click import Template from the Templates page</li>
+</ul>
+<p><img alt="" src="../pic/b-11-1.png" /></p>
+<h3 id="step-12">Step 12:</h3>
+<ul>
+<li>Locate simple_template.template file on desktop, and open the template. </li>
+</ul>
+<p><img alt="" src="../pic/b-12-1.png" /></p>
+<h3 id="step-13">Step 13:</h3>
+<ul>
+<li>Save the template </li>
+</ul>
+<p><img alt="" src="../pic/b-13-1.png" />   </p>
+<h3 id="step-14">Step 14:</h3>
+<ul>
+<li>Click left side menu Configure &gt; Deploy &gt; POAP</li>
+</ul>
+<h3 id="step-15">Step 15:</h3>
+<ul>
+<li>Click plus sign to add new POAP Definitions </li>
+</ul>
+<h3 id="step-16">Step 16:</h3>
+<ul>
+<li>Check Generate Definition and click next</li>
+</ul>
+<h3 id="step-17">Step 17:</h3>
+<ul>
+<li>Switch to <strong>MTPuTTY</strong> open connection to switch <strong>leaf-4</strong>, type in command <strong>‘show module’</strong> and write down the <strong>Serial-Num</strong></li>
+</ul>
+<hr />
+<p><font style= "background-color:  yellow">Note: The Serial-Num from your output might be different</font></p>
+<hr />
+<ul>
+<li>
+<p>Put the Serial Number <strong>(9VSCMHEMJ69)</strong> for switch leaf-4 in ‘Switches’ field. Fill in other information on the page as following. </p>
+</li>
+<li>
+<p>Use drop down list to fill in rest information </p>
+<ul>
+<li><strong>Switch Type: N9K</strong></li>
+<li><strong>Image Server: Default_SCP_Repository</strong></li>
+<li><strong>Switch Username: admin</strong></li>
+<li><strong>Switch Password: C1sco12345</strong></li>
+</ul>
+</li>
+</ul>
+<p><img alt="" src="../pic/b-17-2.png" /></p>
+<h3 id="step-18">Step 18:</h3>
+<ul>
+<li>Click <strong>Next</strong> and select <strong>simple_template</strong> from template drop down list, and fill in other information as below<ul>
+<li><strong>Switch Name : leaf-4</strong></li>
+<li><strong>Administrative Username: Admin</strong></li>
+<li><strong>Administrative Password: c1sco12345</strong></li>
+<li><strong>Management IP: 198.18.4.104</strong></li>
+<li><strong>Management Prefix: 24</strong></li>
+<li><strong>Default Gateway: 198.18.4.1</strong></li>
+<li><strong>Console timeout: 0</strong></li>
+<li><strong>Console Speed : 9600</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="step-19">Step 19:</h3>
+<ul>
+<li>
+<p>Select switch leaf-4 with <strong>Serial Number ‘91AQACU3U3UH9’</strong></p>
+</li>
+<li>
+<p>Click <strong>Next</strong></p>
+</li>
+</ul>
+<h3 id="step-20">Step 20:</h3>
+<ul>
+<li>Click <strong>Preview CLI</strong> as shown below</li>
+<li>Then click <strong>Finish</strong> 
+<img alt="" src="../pic/b-20-1.png" /> </li>
+</ul>
+<h3 id="step-21">Step 21:</h3>
+<ul>
+<li>select switch <strong>leaf-4</strong>, Click <strong>Write Erase and Reload</strong> to delte leaf-4 configuration and kick off the POAP process </li>
+</ul>
+<p><img alt="" src="../pic/b-21-1.png" /> </p>
+<ul>
+<li>Click <strong>Continue</strong> on the popup warning </li>
+</ul>
+<p><img alt="" src="../pic/b-21-2.png" /></p>
+<h3 id="step-22">Step 22:</h3>
+<ul>
+<li>Connect to Leaf-4 console port from MTPuTTY, watch the POAP process</li>
+</ul>
+<hr />
+<p><font style= "background-color:  yellow">If the POAP scripts fail, verify the S/N in console. If the S/N doesn’t match what you configured in POAP definition, you need to configure new POAP definition matches the S/N.</font> </p>
+<hr />
+<p><img alt="" src="../pic/b-22-1.png" /></p>
+<h3 id="step-23">Step 23:</h3>
+<ul>
+<li>Login leaf-4 to verify running configuration after POAP is completed</li>
+</ul>
+<hr />
+<p><font style= "background-color:  yellow">POAP will take 20 mins to bootup; up to this point, you have completed all tasks.</font></p>
+<hr />
+<h1 id="congratulation-you-have-completed-the-whole-lab">Congratulation! You have completed the whole lab.</h1>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/fchaudhr/holdcn-1010.git/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Task 2 - First Simple Ansible Playbook - Cisco Live 2021 HOLDCN-1010</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Task 2 - First Simple Ansible Playbook";
+    var mkdocs_page_input_path = "task2-first-ansible.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Cisco Live 2021 HOLDCN-1010</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../intro/">Introduction</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Task1-ansible-node/">Task 1 - Prepare Ansible node</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Task 2 - First Simple Ansible Playbook</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task3-vxlan-jinja2/">Task 3 - Use of Jinja2 templates with Ansible Playbook</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task4-vxlan-nxos/">Task 4 - Config switches using Ansible NXOS modules</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../task5-day2-operation/">Task 5 - Day 2 Operations</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixA-F5/">Appendix A - F5</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../appendixB-Upgrade/">Appendix B - Upgrade</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Cisco Live 2021 HOLDCN-1010</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Task 2 - First Simple Ansible Playbook</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/fchaudhr/holdcn-1010.git/edit/master/docs/task2-first-ansible.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>In this section, we will create the first Ansible Playbook. In the playbook, we will configure VLANs on leaf switches, and assign VLANs to the server facing port. </p>
+<p>You will learn create variables inside playbook, learn simple loop using “<strong>with_items</strong>”, learn simple logical using “<strong>when</strong>” and learn “<strong>tags</strong>” to isolate tasks from whole playbook. </p>
+<hr />
+<h3 id="step-1-using-atom-text-editor">Step 1: Using "Atom" text Editor</h3>
+<ul>
+<li>
+<p>Open “Atom” text editor by double click the icon on desktop. Atom is the recommended text editor for this lab:</p>
+<p><img alt="" src="../pic/2-1-atom.png" /></p>
+</li>
+<li>
+<p>After opening ATOM, <strong>Click</strong> <code>No, Never</code> to the <strong><em>“Register as default atom:// URI handler”</em></strong> message as show below:</p>
+<p><img alt="" src="../pic/2-1-2-atom.png" /></p>
+</li>
+<li>
+<p>As an optional step: on ATOM you may close the Welcome, Welcome Guide, Telemetry Consent tabs. </p>
+</li>
+</ul>
+<hr />
+<h3 id="step-2-atom-folder">Step 2: Atom folder</h3>
+<ul>
+<li>After opening ATOM, there should be a folder in the left pane named “LTRDCN-1572.”</li>
+<li>
+<p><strong>Right click</strong> the pre-configured project folder <code>LTRDCN-1572</code> and select <code>New File</code> </p>
+<p><img alt="" src="../pic/2-2-atom-folder.png" /></p>
+</li>
+<li>
+<p>Name the new file <code>vlan_provision.yml</code> and hit enter. This will create the new file:</p>
+<p><img alt="" src="../pic/2-2-2-atom-vlan.png" /></p>
+</li>
+<li>
+<p>Also, on the lower bar of the ATOM, verify that  file grammar of <strong>YAML</strong> is selected instead of default "<strong>Plain Text</strong>".  If <strong>YAML</strong> is not selected, then you should <strong>choose</strong> it from the listed options.</p>
+<p><img alt="" src="../pic/2-2-3-atom-yaml.png" /></p>
+</li>
+</ul>
+<hr />
+<h3 id="step-3-define-variables-tasks-for-playbook">Step 3: Define variables, tasks for playbook</h3>
+<p>In this step, we are going to define the scope, variable for playbook and tasks </p>
+<ul>
+<li>In the opened window for ‘vlan_provision.yml’ file, enter the below content.<ul>
+<li><strong>NOTE: YAML is space sensitive. Hence be careful with the spaces in below section.  You may copy and paste the full content (start to finish) from below to make sure that spaces are copied properly.</strong></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-YAML">---                     
+#Task 2: Simple playbook assign VLAN to server facing port
+  - hosts: leaf:jinja2_leaf
+    vars:
+      nxos_provider:
+        username: &quot;{{ user }}&quot;
+        password: &quot;{{ pwd }}&quot;
+        transport: nxapi
+        host: &quot;{{ inventory_hostname }}&quot;
+
+</code></pre>
+<p>Further note:</p>
+<ul>
+<li>“<strong>hosts:</strong>” defines the scope of this playbook applies to all switches in group ‘leaf’ and ‘jinja2_leaf’ (within the <strong><em>"hosts"</em></strong> file created in pervious task). <ul>
+<li><strong>Note</strong> that you can review the IP addresses of the three (2) “leaf” and one (1) “jinja2_leaf” in the “<strong><em>hosts</em></strong>” file (configured in previous steps).  The IP addresses are:<ul>
+<li>jinja2_leaf: 198.18.4.104</li>
+<li>leaf: 198.18.4.101</li>
+<li>leaf: 198.18.4.103</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>“<strong>vars</strong>” defines one variable “<strong>nxos_provider</strong>” that will be used in this playbook. </li>
+<li>“<strong>nxos_provider</strong>” is variable that includes all value that will be used for connection and autnentication. <ul>
+<li>This variable will be referenced in playbook via “<strong>provider</strong>” argument (that will be added in next step #4).    </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="step-4-vlan-tasks-in-playbook">Step 4: VLAN tasks in playbook</h3>
+<ul>
+<li>Continue to add below tasks on the same  playbook file:<ul>
+<li><strong>NOTE: YAML is space sensitive. Hence be careful with the spaces in below section.  You may copy and paste the full content (start to finish) from below to make sure that spaces are copied properly.</strong></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-YAML">    tasks:
+      - name: provision VLAN
+        nxos_config:
+          lines: &quot;vlan {{item}}&quot;
+          provider: &quot;{{nxos_provider}}&quot;
+        with_items:
+          -  140
+          -  141
+        tags: add vlans
+</code></pre>
+<p>Note:</p>
+<ul>
+<li>Multiple plays can be defined in one playbook under “<strong>tasks</strong>”, each starts with “-“ . </li>
+<li>
+<p>This kind of play creates multiple VLANs using <strong>nxos_config</strong> module. </p>
+<ul>
+<li>The “lines” option is used to pass only one configuration command.  This commands must be the exact same commands as found in the device running-config.</li>
+<li>Though one or multiple configuration commands can be configured under the “lines” option.   For multiple, ordered set of commands can be configured under this “line” section.</li>
+</ul>
+</li>
+<li>
+<p>At the end of this play, we use “<strong>tags</strong>” to name the play “<strong>add vlans</strong>”. This is useful to run a specific part of the configuration without running whole playbook.</p>
+</li>
+<li>
+<p>Below screenshot shows how playbook will look:</p>
+<p><img alt="" src="../pic/2-4-1.png" /></p>
+<p><strong>NOTE: Formatting is extremely important when working with Ansible. Ansible playbook would return errors if the spaces are not properly aligned or formatting is not correct
+</strong></p>
+</li>
+<li>
+<p><strong>Click</strong> <code>File</code> and <code>Save</code> . This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package. </p>
+<p><img alt="" src="../pic/2-4-2.png" /></p>
+<p><strong>NOTE: Once the Save button is pressed, then at the lower part of ATOM app, you will see message about connecting to Ansibe host (198.18.134.150) and saving the vlan_provision.yml file</strong></p>
+</li>
+</ul>
+<hr />
+<h3 id="step-5-execute-playbook">Step 5: Execute playbook</h3>
+<p>After creating the playbook, it is now time to execute the playbook. 
+*  Before executing the playbook, we will verify the leaf switch if it has any vlan configuration present on it.
+*  <strong>Login</strong> to leaf-3 switch using the Mputty client, or any leaf switch in previous playbook (remember <strong>hosts:</strong> variable in the file), and execute <code>show vlan brief</code> command. 
+    *  This command will show the vlans that currently exist on the leaf switch.  As you note from below screenshot, only the default VLAN (vlan number 1) is configured:</p>
+<p><img alt="" src="../pic/2-5-1.png" /></p>
+<ul>
+<li>Now, go to mputty, login or launch a new ssh into Ansible node (198.18.134.150) </li>
+<li>
+<p>Use command <code>ansible-playbook vlan_provision.yml --tags "add vlans"</code> under folder "LTRDCN-1572" as shown below:</p>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# ansible-playbook vlan_provision.yml --tags "add vlans"
+</code></pre>
+<p><img alt="" src="../pic/2-5-2.png" /></p>
+<p><strong>Note: If the playbook fails first time, re-run the playbook again. Make sure to save all the changes in the playbook first before executing the playbook in Ansible.</strong></p>
+</li>
+<li>
+<p>After playbook is run successfully, login into leaf 3 again and check if vlan 140 and vlan 141 appears. There would also be a log message on the screen indicating a configuration change was pushed to the device:</p>
+<p><img alt="" src="../pic/2-5-3.png" /></p>
+</li>
+</ul>
+<hr />
+<h3 id="step-6-server-port-vlan-tasks-in-playbook">Step 6: Server port VLAN tasks in playbook</h3>
+<p>We have just tested our first playbook with basic configuration (i.e, by adding 2 VLANS), now we are going to add more tasks in our existing playbook “<strong>vlan_provision.yml</strong>” in this step:</p>
+<ul>
+<li>we will add new plays in the playbook to assign VLANs to server facing port. This time, we will configure VLAN towards the server facing ports</li>
+<li>Go back to <strong>ATOM</strong> and <strong>add</strong> the following plays to the <strong>existing playbook</strong><ul>
+<li><em>NOTE: YAML is space sensitive. Hence be careful with the spaces in below section.  You may copy and paste the full content (start to finish) from below to make sure that spaces are copied properly.</em></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-YAML">      - name: configure server facing port to L2
+        nxos_interface:
+          interface: eth1/3
+          mode: layer2
+          provider: &quot;{{nxos_provider}}&quot;
+      - name: configure VLAN for server port
+        when: (&quot;101&quot; in inventory_hostname) or (&quot;103&quot; in inventory_hostname)
+        nxos_switchport:
+          interface: eth1/3
+          mode: access
+          access_vlan: 140
+          provider: &quot;{{nxos_provider}}&quot;
+      - name: configure VLAN for server port
+        when: (&quot;102&quot; in inventory_hostname) or (&quot;104&quot; in inventory_hostname)
+        nxos_switchport:
+          interface: eth1/3
+          mode: access
+          access_vlan: 141
+          provider: &quot;{{nxos_provider}}&quot;
+</code></pre>
+<ul>
+<li><strong>Click</strong> <code>File</code> and <code>Save</code> on ATOM. This will save the playbook, and also ftp the playbook to Ansible server using pre-configured “<strong>remote-sync</strong>” package. </li>
+</ul>
+<p>Note: In this new play, we used nxos module “<strong>nxos_interface</strong>” and “<strong>nxos_switchport</strong>”. </p>
+<ul>
+<li>“<strong>nxos_interface</strong>” provides the capability to manage the physical attributes of an interface<ul>
+<li>In this example, it is used to configure “layer 2” on interface Ethernet 1/3</li>
+</ul>
+</li>
+<li>“<strong>nxos_switchport</strong>” provides the capability to manage the Layer 2 switchport attributes<ul>
+<li>In this example, it is used to configuration it is used to configure mode access on Ethernet ports 1/3</li>
+</ul>
+</li>
+<li>We used “<strong>when</strong>” argument to provide little logic of the play. <ul>
+<li>In our example, the playbook assign VLAN 140 on leaf1 and leaf3 switches; assign VLAN 141 on leaf4 switch. </li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="step-7-execute-playbook">Step 7: Execute playbook</h3>
+<p>Now, we are going to execute this playbook:</p>
+<ul>
+<li>Before excuting the ansible playbook, you may log into switch (leaf1, leaf3 or leaf4) using MTPutty client, and check the existing configuration by executing the below command:</li>
+</ul>
+<pre><code>show run interface ethernet1/3
+</code></pre>
+<ul>
+<li>
+<p>On MTPuttY, log back into (or launch a new ssh) into “Ansible” node</p>
+</li>
+<li>
+<p>Execute command <code>ansible-playbook vlan_provision.yml</code> in the “LTRDCN-1572” directory as shown below:</p>
+</li>
+</ul>
+<pre><code>[root@rhel7-tools LTRDCN-1572]# ansible-playbook vlan_provision.yml
+</code></pre>
+<p>Below screeenshot shows the execution of above command:</p>
+<p><img alt="" src="../pic/2-7-1-new.png" /></p>
+<ul>
+<li>After we push the configuration, <strong>login</strong> to the <strong>leaf-3</strong> switch, and check if the server facing port has the access vlan configured with the below command:</li>
+</ul>
+<pre><code>show run interface ethernet1/3
+</code></pre>
+<p>The output of above command on leaf-3 or leaf-1 is shown in below screenshot:</p>
+<p><img alt="" src="../pic/2-7-2.png" /></p>
+<p>The output of above command on leaf-4 is shown in below screenshot:</p>
+<p><img alt="" src="../pic/2-7-3.png" /></p>
+<hr />
+<p><strong>Congratulation! You have created your first ansible playbook, automatically provisioned new VLANs and assigned port to new created VLANs using Ansible. Next we are going to create VXLAN Fabric using Ansible. 
+</strong></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../task3-vxlan-jinja2/" class="btn btn-neutral float-right" title="Task 3 - Use of Jinja2 templates with Ansible Playbook">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Task1-ansible-node/" class="btn btn-neutral" title="Task 1 - Prepare Ansible node"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/fchaudhr/holdcn-1010.git/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../Task1-ansible-node/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../task3-vxlan-jinja2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

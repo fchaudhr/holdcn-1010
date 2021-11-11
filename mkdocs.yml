@@ -3,6 +3,7 @@ repo_url: https://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@github.com/fchaudhr/h
 #git+https://${GH_TOKEN}@github.com/squidfunk/mkdocs-material-insiders.git
 remote_branch: gh-pages
 remote_name: origin
+theme: {font: false, name: material}
 pages:
     - Home: index.md
     - Introduction: intro.md
@@ -13,7 +14,6 @@ pages:
     - Task 5 - Day 2 Operations: task5-day2-operation.md
     - Appendix A - F5: appendixA-F5.md
     - Appendix B - Upgrade: appendixB-Upgrade.md
-theme: readthedocs
 #plugins:
 #    - search
 #    - pdf-export
